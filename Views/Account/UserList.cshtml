@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model List<IdentityUser>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <form asp-action="ResetPassword" method="post">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (TempData["NewPassword"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        New password: @TempData["NewPassword"]
+    </div>
+}
